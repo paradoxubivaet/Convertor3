@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Data;
 
 namespace Convertor3
 {
@@ -13,11 +14,12 @@ namespace Convertor3
     {
         static void Main(string[] args)
         {
-            string jsonPath = string.Empty;
-            string csvPath = string.Empty;
-            string separator = string.Empty;
-            Encoding encoding = Encoding.Default;
-            string que = string.Empty;
+
+            var jsonPath = string.Empty;
+            var csvPath = string.Empty;
+            var separator = string.Empty;
+            var encoding = Encoding.Default;
+            var que = string.Empty;
 
             OptionSet CmdParser = new OptionSet
             {
@@ -46,11 +48,11 @@ namespace Convertor3
                 csvPath = Path.Combine(Path.GetDirectoryName(jsonPath) + Path.GetFileNameWithoutExtension(jsonPath) + ".csv");
             }
 
-            ConvertFromJson convertFromJson = new ConvertFromJson();
-            List<dynamic> objects = convertFromJson.Convert(jsonPath);
+            var convertFromJson = new ConvertFromJson();
+            DataTable objects = convertFromJson.Convert(jsonPath);
 
 
-            ConvertToCsv convertToCsv = new ConvertToCsv();
+            var convertToCsv = new ConvertToCsv();
             convertToCsv.Convert(objects, csvPath, separator, encoding);
 
             if (!args.Contains("-q"))
