@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Convertor3": {
+      "commandName": "Project",
+      "commandLineArgs": "-i C:\\Users\\BlackBroke\\Desktop\\jojo.json -o C:\\Users\\BlackBroke\\Desktop\\jojo.csv -s \",\" -e UTF-8"
+    }
+  }
+}
