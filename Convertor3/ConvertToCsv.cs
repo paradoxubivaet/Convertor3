@@ -1,12 +1,6 @@
-﻿using CsvHelper;
-using System.Globalization;
-using System.Text;
+﻿using System.Text;
 using System.IO;
 using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Dynamic;
-using System.ComponentModel;
 using System.Data;
 using System.Linq;
 
@@ -18,21 +12,6 @@ namespace Convertor3
         {
             if (sep == string.Empty)
                 sep = ",";
-                //sep = "sep=,";
-            //else
-            //    sep = "sep=" + sep;
-
-            //var fs = new FileStream(path, FileMode.Create);
-
-            //using (var streamWriter = new StreamWriter(fs, encoding))
-            //{
-            //    streamWriter.WriteLine(sep);
-
-            //    using (var csvWriter = new CsvWriter(streamWriter, CultureInfo.InvariantCulture))
-            //    {
-            //        csvWriter.WriteRecords(objects);
-            //    }
-            //}
 
             StringBuilder sb = new StringBuilder();
 
@@ -46,19 +25,7 @@ namespace Convertor3
                 sb.AppendLine(string.Join(sep, fields));
             }
 
-            File.WriteAllText(path, sb.ToString());
-
-
-
-
-            //StreamWriter streamWriter = new StreamWriter(path, false);
-
-            //foreach(var item in objects.Columns)
-            //{
-            //    streamWriter.Write(item);
-
-            //    if()
-            //}
+            File.WriteAllText(path, sb.ToString(), encoding);
         }
     }
 }

@@ -14,43 +14,16 @@ namespace Convertor3
     {
         static void Main(string[] args)
         {
+            var parserCml = new ParseCommandLine();
+            Dictionary<string, string> dicArgs =  parserCml.Parse(args);
 
-            var jsonPath = string.Empty;
-            var csvPath = string.Empty;
-            var separator = string.Empty;
-            var encoding = Encoding.Default;
-            var que = string.Empty;
-
-            OptionSet CmdParser = new OptionSet
-            {
-                {"i|jsonPath=", "JsonPath", jp => jsonPath = jp },
-                {"o|csvPath=", "CsvPath", cp => csvPath = cp },
-                {"s|separator=", "Separator", sp => separator = sp},
-                {"e|encoding=", "Encoding",  en => encoding = Encoding.GetEncoding(en) },
-                {"q|que=", "Que", q => que = q }
-            };
-
-            try
-            {
-                List<string> Args = CmdParser.Parse(args);
-                if (Args.Count > 1)
-                {
-                    Console.Write($"Unrecognised argument in: {string.Join(" ", Args)}");
-                }
-            }
-            catch (OptionException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-            if (csvPath == string.Empty)
-            {
-                csvPath = Path.Combine(Path.GetDirectoryName(jsonPath) + Path.GetFileNameWithoutExtension(jsonPath) + ".csv");
-            }
+            var jsonPath = dicArgs["-i"];
+            var csvPath = dicArgs["-o"];
+            var separator = dicArgs["-s"];
+            var encoding = Encoding.GetEncoding(dicArgs["-e"]);
 
             var convertFromJson = new ConvertFromJson();
             DataTable objects = convertFromJson.Convert(jsonPath);
-
 
             var convertToCsv = new ConvertToCsv();
             convertToCsv.Convert(objects, csvPath, separator, encoding);
